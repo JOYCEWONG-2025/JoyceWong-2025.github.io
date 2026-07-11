@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Joyce Wong — Computer Science, Universiti Malaya</title>
+<meta name="description" content="Portfolio of Joyce Wong, Computer Science student at Universiti Malaya — web & mobile development, data analytics, and ML projects.">
+
+<link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/favicon-180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/favicon-192.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,450;0,9..144,550;0,9..144,600;0,9..144,680;1,9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+</head>
+<body>
+<style>
+  .portfolio-embed {
+    --paper:#FDFBF8;
+    --paper-2:#F4F0FB;
+    --paper-3:#FFFFFF;
+    --ink:#1C1726;
+    --ink-soft:#5A5369;
+    --muted:#948CA8;
+    --line:#E9E2F7;
+    --accent:#6E3DF2;
+    --accent-2:#FF6B45;
+    --accent-soft:#EFE7FE;
+
+    --c-energy:#0A8F5B;   --c-energy-bg:#E2F8ED;
+    --c-stitch:#6E3DF2;   --c-stitch-bg:#EFE7FE;
+    --c-crave:#F0631E;    --c-crave-bg:#FEECDE;
+    --c-split:#9B33DE;    --c-split-bg:#F6E8FE;
+    --c-job:#0AA2B8;      --c-job-bg:#DFF6F8;
+    --c-ml:#E0316F;       --c-ml-bg:#FCE5EF;
+
+    --radius-l:22px;
+    --radius-m:13px;
+    --nav-height:76px;
+
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Plus Jakarta Sans', -apple-system, sans-serif !important;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+    width: 100%;
+    position: relative;
+  }
+
+  .portfolio-embed * { box-sizing:border-box; margin:0; padding:0; }
+  .portfolio-embed a { color:inherit; transition: color .15s ease; text-decoration: none; }
+
+  /* Link States */
+  .portfolio-embed a:active { color: var(--accent-2) !important; }
+  .portfolio-embed .mono { font-family:'Space Mono', monospace !important; }
+  .portfolio-embed .wrap{ max-width:1100px; margin:0 auto; padding:0 32px; position:relative; }
+
+  /* NAV — fixed, not sticky. Sticky breaks silently inside most Elementor
+     sections (any ancestor with overflow:hidden or a transform kills it);
+     fixed positioning is anchored to the viewport instead and survives that. */
+  .portfolio-embed .nav{
+    position:fixed; top:0; left:0; right:0; z-index:999;
+    height:var(--nav-height);
+    background:rgba(253,251,248,0.82);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid transparent;
+    transition: background .2s ease, border-color .2s ease;
+  }
+  .portfolio-embed .nav.scrolled{
+    background:rgba(253,251,248,0.96);
+    border-bottom-color:var(--line);
+  }
+  .portfolio-embed .nav-inner{
+    max-width:1100px; margin:0 auto; padding:0 32px;
+    height:100%;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .portfolio-embed .nav-mark{
+    font-family:'Fraunces', serif !important;
+    font-weight:600; font-size:18px; letter-spacing:-0.01em;
+    display:flex; align-items:center; gap:9px;
+  }
+  .portfolio-embed .nav-avatar{ width:34px; height:34px; flex-shrink:0; display:block; object-fit:contain; }
+  .portfolio-embed .nav-links{ display:flex; gap:28px; font-size:14px; }
+  .portfolio-embed .nav-links a{ color:var(--ink-soft); }
+  .portfolio-embed .nav-links a:hover{ color:var(--accent); }
+
+  /* Spacer so page content isn't hidden under the fixed nav */
+  .portfolio-embed .nav-spacer{ height:var(--nav-height); }
+
+  /* HERO */
+  .portfolio-embed .hero{ padding:84px 0 84px; position:relative; z-index:0; }
+  .portfolio-embed .hero-blob{
+    position:absolute; z-index:-1;
+    pointer-events:none; mix-blend-mode:normal;
+  }
+  /* soft wide base glow */
+  .portfolio-embed .hero-blob.b1{
+    width:460px; height:400px; top:-190px; right:40px;
+    border-radius:48% 52% 55% 45% / 55% 45% 58% 42%;
+    transform:rotate(-8deg);
+    background:radial-gradient(ellipse at 35% 35%, var(--accent), transparent 68%);
+    filter:blur(70px); opacity:.30;
+  }
+  /* warm orange bloom, offset lower-left of the base */
+  .portfolio-embed .hero-blob.b2{
+    width:300px; height:250px; top:30px; right:300px;
+    border-radius:60% 40% 45% 55% / 50% 55% 45% 50%;
+    transform:rotate(12deg);
+    background:radial-gradient(ellipse at 40% 40%, var(--accent-2), transparent 70%);
+    filter:blur(56px); opacity:.27;
+  }
+  /* magenta/pink petal */
+  .portfolio-embed .hero-blob.b3{
+    width:260px; height:220px; top:-60px; right:120px;
+    border-radius:55% 45% 40% 60% / 45% 55% 45% 55%;
+    transform:rotate(-18deg);
+    background:radial-gradient(ellipse at 45% 45%, #E0316F, transparent 70%);
+    filter:blur(52px); opacity:.20;
+  }
+  /* small bright gold spark near the core of the bloom */
+  .portfolio-embed .hero-blob.b4{
+    width:140px; height:120px; top:0px; right:230px;
+    border-radius:50%;
+    background:radial-gradient(circle at 50% 50%, #FFC864, transparent 72%);
+    filter:blur(28px); opacity:.32;
+  }
+  /* thin cyan highlight sliver for a natural colour-shift edge */
+  .portfolio-embed .hero-blob.b5{
+    width:160px; height:130px; top:150px; right:60px;
+    border-radius:60% 40% 50% 50% / 45% 50% 50% 55%;
+    transform:rotate(20deg);
+    background:radial-gradient(ellipse at 50% 50%, #0AA2B8, transparent 72%);
+    filter:blur(46px); opacity:.15;
+  }
+  .portfolio-embed .hero-eyebrow{
+    font-family:'Space Mono', monospace !important;
+    font-size:13px; color:var(--accent);
+    display:flex; align-items:center; gap:8px;
+    margin-bottom:22px;
+  }
+  .portfolio-embed .hero-eyebrow .dot{
+    width:6px; height:6px; border-radius:50%; background:var(--accent-2);
+  }
+  .portfolio-embed h1{
+    font-family:'Fraunces', serif !important;
+    font-weight:600;
+    font-size:clamp(38px, 6vw, 64px);
+    line-height:1.08;
+    letter-spacing:-0.02em;
+    max-width:16ch;
+    margin-bottom:24px;
+    color: var(--ink);
+  }
+  .portfolio-embed h1 .accent{ color:var(--accent) !important; font-style:italic !important; }
+  .portfolio-embed .hero p{
+    font-family:'Plus Jakarta Sans', sans-serif !important;
+    font-size:18px;
+    color:var(--ink-soft);
+    max-width:56ch;
+    margin-bottom:28px;
+  }
+  .portfolio-embed .hero p b{ color:var(--ink); font-weight:700; }
+
+  .portfolio-embed .badge-row{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:36px; }
+  .portfolio-embed .badge-label{
+    font-family:'Space Mono', monospace !important; font-size:11.5px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted);
+  }
+  .portfolio-embed .badge-pill{
+    font-family:'Space Mono', monospace !important; font-size:12px;
+    background:var(--accent-soft); color:var(--accent);
+    padding:5px 12px; border-radius:100px; border:1px solid transparent;
+  }
+
+  .portfolio-embed .hero-links{ display:flex; gap:28px; flex-wrap:wrap; }
+  .portfolio-embed .hlink{
+    font-family:'Plus Jakarta Sans', sans-serif !important;
+    font-size:14.5px; font-weight:600; text-decoration:none; color:var(--ink);
+    display:inline-flex; align-items:center; gap:6px;
+    padding-bottom:2px; border-bottom:2px solid var(--ink);
+    transition:color .15s ease, border-color .15s ease;
+  }
+  .portfolio-embed .hlink:hover{ color:var(--accent); border-color:var(--accent); }
+  .portfolio-embed .hlink:active { color: var(--accent-2) !important; border-color: var(--accent-2) !important; }
+  .portfolio-embed .hlink svg{ width:13px; height:13px; }
+
+  /* SECTIONS */
+  .portfolio-embed .section{ padding:20px 0 96px; }
+  .portfolio-embed .section-head{ margin-bottom:52px; }
+  .portfolio-embed .section-eyebrow{
+    font-family:'Space Mono', monospace !important;
+    font-size:12.5px; letter-spacing:.06em; text-transform:uppercase;
+    color:var(--muted); margin-bottom:10px;
+  }
+  .portfolio-embed .section h2{
+    font-family:'Fraunces', serif !important;
+    font-weight:600;
+    font-size:clamp(26px, 3.6vw, 38px);
+    letter-spacing:-0.015em;
+    color: var(--ink);
+  }
+
+  /* PROJECT GRID */
+  .portfolio-embed .grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:28px;
+  }
+
+  /* card-wrapper is a plain DIV (not an <a>), so the real links inside it
+     are never nested inside another link. JS below makes the whole card
+     clickable while still letting each inner link go to its own URL. */
+  .portfolio-embed .card-wrapper {
+    cursor:pointer;
+    display:flex;
+  }
+  .portfolio-embed .card{
+    width: 100%;
+    border:1px solid var(--line);
+    border-radius:var(--radius-l);
+    overflow:hidden;
+    background:var(--paper-3);
+    color:var(--ink);
+    display:flex; flex-direction:column;
+    opacity:1;
+    transform:translateY(0);
+    transition: box-shadow .25s ease, border-color .25s ease, transform .25s ease;
+  }
+
+  /* Floating Card Engine Layout */
+  .portfolio-embed .card-wrapper:hover .card {
+    box-shadow:0 18px 44px rgba(28,23,38,0.10);
+    border-color:transparent;
+    transform: translateY(-8px);
+  }
+
+  .portfolio-embed .card-preview{
+    aspect-ratio:16/10;
+    background:var(--bg, var(--paper-2));
+    overflow:hidden;
+    position:relative;
+    display:block;
+  }
+  .portfolio-embed .card-preview.contain{ padding:20px; display:flex; align-items:center; justify-content:center; }
+  .portfolio-embed .card-preview img{
+    width:100%; height:100%; object-fit:cover; object-position:top center;
+    display:block; border-radius:0;
+    transition:transform .4s cubic-bezier(.19,1,.22,1), box-shadow .4s ease;
+    will-change:transform;
+    pointer-events:none; /* image itself shouldn't intercept the card click */
+  }
+  .portfolio-embed .card-preview.contain img{
+    width:auto; height:100%; max-width:100%; object-fit:contain;
+    border-radius:10px;
+  }
+  .portfolio-embed .card-wrapper:hover .card-preview img{
+    transform: scale(1.02);
+  }
+
+  .portfolio-embed .card-body{ padding:22px 24px 24px; flex:1; display:flex; flex-direction:column; }
+  .portfolio-embed .card-tag{
+    font-family:'Space Mono', monospace !important;
+    font-size:11px; font-weight:700; letter-spacing:.04em;
+    color:var(--tag, var(--accent));
+    margin-bottom:10px;
+  }
+  .portfolio-embed .card-title{
+    font-family:'Fraunces', serif !important;
+    font-weight:600; font-size:21px; letter-spacing:-0.01em;
+    margin-bottom:8px;
+    color: var(--ink);
+  }
+  .portfolio-embed .card-desc{
+    font-family:'Plus Jakarta Sans', sans-serif !important;
+    font-size:14.5px; color:var(--ink-soft); line-height:1.58;
+    margin-bottom:16px; flex:1;
+  }
+  .portfolio-embed .card-stack{ display:flex; flex-wrap:wrap; gap:6px; margin-bottom:16px; }
+  .portfolio-embed .card-chip{
+    font-family:'Space Mono', monospace !important;
+    font-size:11px; color:var(--ink-soft);
+    background:var(--paper-2);
+    padding:3px 8px; border-radius:5px;
+  }
+  .portfolio-embed .card-links{ display:flex; align-items:center; gap:18px; flex-wrap:wrap; position: relative; z-index: 2; }
+  .portfolio-embed .card-link{
+    font-family:'Plus Jakarta Sans', sans-serif !important;
+    font-size:13.5px; font-weight:600;
+    display:inline-flex; align-items:center; gap:6px;
+    color:var(--tag, var(--accent));
+  }
+  .portfolio-embed .card-link:hover{ text-decoration:underline; }
+  .portfolio-embed .card-link svg{ width:13px; height:13px; transition:transform .15s ease; }
+  .portfolio-embed .card-link:hover svg{ transform:translate(3px,-3px); }
+
+  /* ABOUT STRIP */
+  .portfolio-embed .about-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:24px; }
+  .portfolio-embed .about-item{ padding:20px; border-radius:var(--radius-m); background:var(--paper-2); }
+  .portfolio-embed .about-item .num{
+    font-family:'Fraunces', serif !important;
+    font-weight:600; font-size:16px; margin-bottom:6px; color:var(--ink);
+  }
+  .portfolio-embed .about-item .desc{
+    font-family:'Plus Jakarta Sans', sans-serif !important;
+    font-size:13.5px; color:var(--ink-soft); line-height:1.55;
+  }
+
+  /* CONTACT */
+  .portfolio-embed .contact-block{
+    background:linear-gradient(155deg, var(--accent-soft) 0%, var(--paper-2) 70%);
+    border-radius:var(--radius-l);
+    padding:56px 48px; position:relative; overflow:hidden;
+  }
+  .portfolio-embed .contact-block h2{
+    font-family:'Fraunces', serif !important;
+    font-weight:600; font-size:clamp(28px,4vw,40px);
+    letter-spacing:-0.02em; margin-bottom:28px; max-width:18ch;
+    color: var(--ink);
+  }
+  .portfolio-embed .contact-emails{ display:flex; flex-direction:column; gap:14px; }
+  .portfolio-embed .email-link{
+    font-family:'Plus Jakarta Sans', sans-serif !important;
+    font-size:clamp(17px, 2.2vw, 20px); font-weight:700;
+    color:var(--ink); display:inline-flex; align-items:center; gap:12px; width:fit-content;
+  }
+  .portfolio-embed .email-link .label{
+    font-family:'Space Mono', monospace !important;
+    font-size:11.5px; font-weight:400; color:var(--muted);
+    background:var(--paper-3); padding:3px 8px; border-radius:5px;
+  }
+  .portfolio-embed .email-link .arrow{ transition:transform .15s ease; opacity:0; }
+  .portfolio-embed .email-link:hover .arrow{ transform:translateX(4px); opacity:1; }
+
+  .portfolio-embed footer{ padding:40px 0 56px; }
+  .portfolio-embed .foot-note{ font-family:'Space Mono', monospace !important; font-size:13px; color:var(--muted); }
+
+  /* FILTER ROW */
+  .portfolio-embed .filter-row{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:32px; }
+  .portfolio-embed .filter-btn{
+    font-family:'Space Mono', monospace !important;
+    font-size:12.5px; letter-spacing:.02em;
+    background:var(--paper-3); color:var(--ink-soft);
+    border:1px solid var(--line); border-radius:100px;
+    padding:7px 16px; cursor:pointer;
+    transition:background .15s ease, color .15s ease, border-color .15s ease;
+  }
+  .portfolio-embed .filter-btn:hover{ border-color:var(--accent); color:var(--accent); }
+  .portfolio-embed .filter-btn.active{ background:var(--ink); color:var(--paper); border-color:var(--ink); }
+  .portfolio-embed .card-wrapper.hidden{ display:none; }
+
+  /* SKILLS SECTION */
+  .portfolio-embed .skills-grid{ display:flex; flex-direction:column; gap:20px; }
+  .portfolio-embed .skills-row{ display:flex; align-items:baseline; gap:20px; flex-wrap:wrap; }
+  .portfolio-embed .skills-label{
+    font-family:'Space Mono', monospace !important;
+    font-size:12px; letter-spacing:.05em; text-transform:uppercase;
+    color:var(--muted); width:120px; flex-shrink:0;
+  }
+  .portfolio-embed .skills-chips{ display:flex; flex-wrap:wrap; gap:8px; }
+  .portfolio-embed .skill-chip{
+    font-family:'Plus Jakarta Sans', sans-serif !important;
+    font-size:13.5px; font-weight:600; color:var(--ink);
+    background:var(--paper-2); padding:6px 14px; border-radius:8px;
+  }
+
+  /* DETAILS BUTTON on cards */
+  .portfolio-embed .card-link.details-btn{
+    background:none; border:none; padding:0; cursor:pointer;
+    font-family:'Plus Jakarta Sans', sans-serif !important;
+  }
+
+  /* MODAL */
+  .portfolio-embed .modal-overlay{
+    position:fixed; inset:0; z-index:1000;
+    background:rgba(28,23,38,0.5);
+    backdrop-filter:blur(2px);
+    display:none; align-items:flex-start; justify-content:center;
+    padding:40px 20px; overflow-y:auto;
+  }
+  .portfolio-embed .modal-overlay.open{ display:flex; }
+  .portfolio-embed .modal-box{
+    background:var(--paper-3); border-radius:var(--radius-l);
+    max-width:640px; width:100%; padding:36px 36px 32px;
+    position:relative; margin:auto 0;
+  }
+  .portfolio-embed .modal-close{
+    position:absolute; top:20px; right:20px;
+    width:32px; height:32px; border-radius:50%;
+    background:var(--paper-2); border:none; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    color:var(--ink-soft);
+  }
+  .portfolio-embed .modal-close:hover{ background:var(--line); color:var(--ink); }
+  .portfolio-embed .modal-tag{
+    font-family:'Space Mono', monospace !important;
+    font-size:11px; font-weight:700; letter-spacing:.04em;
+    color:var(--modal-tag, var(--accent)); margin-bottom:10px;
+  }
+  .portfolio-embed .modal-title{
+    font-family:'Fraunces', serif !important;
+    font-weight:600; font-size:26px; letter-spacing:-0.01em;
+    margin-bottom:18px; color:var(--ink);
+  }
+  .portfolio-embed .modal-section{ margin-bottom:16px; }
+  .portfolio-embed .modal-section h4{
+    font-family:'Space Mono', monospace !important;
+    font-size:11.5px; letter-spacing:.05em; text-transform:uppercase;
+    color:var(--muted); margin-bottom:6px;
+  }
+  .portfolio-embed .modal-section p, .portfolio-embed .modal-section li{
+    font-family:'Plus Jakarta Sans', sans-serif !important;
+    font-size:14.5px; color:var(--ink-soft); line-height:1.6;
+  }
+  .portfolio-embed .modal-section ul{ padding-left:18px; }
+  .portfolio-embed .modal-links{ display:flex; gap:18px; flex-wrap:wrap; margin-top:22px; }
+
+  @media (max-width:760px){
+    .portfolio-embed .grid{ grid-template-columns:1fr; }
+    .portfolio-embed .nav-links{ display:none; }
+    .portfolio-embed .hero{ padding:64px 0 64px; }
+    .portfolio-embed .hero-blob{ display:none; }
+    .portfolio-embed .about-grid{ grid-template-columns:1fr 1fr; }
+    .portfolio-embed .skills-row{ flex-direction:column; gap:8px; }
+    .portfolio-embed .skills-label{ width:auto; }
+  }
+</style>
+
+<div class="portfolio-embed">
+  <nav class="nav" id="embedded-nav">
+    <div class="nav-inner">
+      <div class="nav-mark">
+        <img class="nav-avatar" src="assets/avatar.png" alt="Joyce Wong" width="34" height="34">
+        Joyce Wong
+      </div>
+      <div class="nav-links">
+        <a href="#work">work</a>
+        <a href="#skills">skills</a>
+        <a href="#about">about</a>
+        <a href="#contact">contact</a>
+      </div>
+    </div>
+  </nav>
+  <div class="nav-spacer"></div>
+
+  <header class="wrap hero">
+    <div class="hero-blob b1"></div>
+    <div class="hero-blob b2"></div>
+    <div class="hero-blob b3"></div>
+    <div class="hero-blob b4"></div>
+    <div class="hero-blob b5"></div>
+    <div class="hero-eyebrow"><span class="dot"></span> Computer Science · Year 1 · Universiti Malaya</div>
+    <h1>Software that ships, <span class="accent">not just code that compiles.</span></h1>
+    <p>
+      I'm drawn to the places where data, backend, and interface meet — currently leaning into
+      <b>web & mobile development</b> and <b>finding patterns in data</b>, and happiest when a project
+      goes from a messy dataset or a rough idea all the way to something someone can actually click on.
+    </p>
+    <div class="badge-row">
+      <span class="badge-label">Competitions</span>
+      <span class="badge-pill">UM Hackathon 2026 — Participant</span>
+    </div>
+    <div class="hero-links">
+      <a class="hlink" href="https://github.com/JOYCEWONG-2025" target="_blank" rel="noopener">
+        github.com/JOYCEWONG-2025
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg>
+      </a>
+      <a class="hlink" href="#contact">Get in touch</a>
+      <a class="hlink" href="assets/resume.pdf" target="_blank" rel="noopener" download>
+        Download résumé
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <section class="section wrap" id="work">
+      <div class="section-head">
+        <div class="section-eyebrow">selected work</div>
+        <h2>Things I've built</h2>
+      </div>
+
+      <div class="filter-row" id="filter-row">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="dashboard">Dashboard</button>
+        <button class="filter-btn" data-filter="ai-agent">AI Agent</button>
+        <button class="filter-btn" data-filter="systems">Systems</button>
+        <button class="filter-btn" data-filter="mobile">Mobile / Web</button>
+        <button class="filter-btn" data-filter="fullstack">Full-Stack</button>
+        <button class="filter-btn" data-filter="ml">Machine Learning</button>
+      </div>
+
+      <div class="grid">
+
+        <!-- ENERGY DASHBOARD -->
+        <div class="card-wrapper" data-href="https://energy-market-analytics-dashboard.netlify.app/" data-category="dashboard">
+          <div class="card" style="--tag:var(--c-energy)">
+            <div class="card-preview" style="--bg:var(--c-energy-bg)">
+              <img src="assets/energy.png" alt="Energy Dashboard" loading="lazy">
+            </div>
+            <div class="card-body">
+              <div class="card-tag">DASHBOARD · INDEPENDENT BUILD</div>
+              <div class="card-title">Energy Market Analytics Dashboard</div>
+              <p class="card-desc">Tracks Brent, WTI, Natural Gas and USD/MYR trends side by side — rebased-to-100 index, rolling volatility and correlation.</p>
+              <div class="card-stack">
+                <span class="card-chip">Python</span>
+                <span class="card-chip">pandas</span>
+                <span class="card-chip">Power BI</span>
+              </div>
+              <div class="card-links">
+                <a class="card-link" href="https://energy-market-analytics-dashboard.netlify.app/" target="_blank" rel="noopener">Live dashboard <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg></a>
+                <a class="card-link" href="https://app.powerbi.com/view?r=eyJrIjoiMWZkZjZkMzEtMmUzYy00ZTlhLTlhNTYtZTAxNWYyYzgzODlmIiwidCI6ImE2M2JiMWE5LTQ4YzItNDQ4Yi04NjkzLTMzMTdiMDBjYTdmYiIsImMiOjEwfQ%3D%3D" target="_blank" rel="noopener">Power BI report <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg></a>
+                <button class="card-link details-btn" data-modal="energy">Details</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- STITCHFLOW -->
+        <div class="card-wrapper" data-href="https://github.com/JOYCEWONG-2025/StitchFlow" data-category="ai-agent">
+          <div class="card" style="--tag:var(--c-stitch)">
+            <div class="card-preview contain" style="--bg:var(--c-stitch-bg)">
+              <img src="assets/stitchflow.png" alt="StitchFlow" loading="lazy">
+            </div>
+            <div class="card-body">
+              <div class="card-tag">AI AGENT · UM HACKATHON 2026</div>
+              <div class="card-title">StitchFlow</div>
+              <p class="card-desc">A human-in-the-loop document workflow engine — redacts PII, reasons over redacted text with an LLM agent, and pauses for human approval.</p>
+              <div class="card-stack">
+                <span class="card-chip">FastAPI</span>
+                <span class="card-chip">LangGraph</span>
+                <span class="card-chip">React + TS</span>
+              </div>
+              <div class="card-links">
+                <a class="card-link" href="https://github.com/JOYCEWONG-2025/StitchFlow" target="_blank" rel="noopener">GitHub profile <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg></a>
+                <button class="card-link details-btn" data-modal="stitchflow">Details</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CRAVE DROP -->
+        <div class="card-wrapper" data-href="https://cravedrop-web-demo.netlify.app/" data-category="systems">
+          <div class="card" style="--tag:var(--c-crave)">
+            <div class="card-preview contain" style="--bg:var(--c-crave-bg)">
+              <img src="assets/cravedrop.png" alt="Crave Drop" loading="lazy">
+            </div>
+            <div class="card-body">
+              <div class="card-tag">SYSTEMS · TEAM PROJECT</div>
+              <div class="card-title">Crave Drop</div>
+              <p class="card-desc">Smart food delivery & order management system. Min-Heap priority-queue engine ranking and dispatching riders in real time.</p>
+              <div class="card-stack">
+                <span class="card-chip">Java</span>
+                <span class="card-chip">JavaFX</span>
+                <span class="card-chip">Priority Queues</span>
+              </div>
+              <div class="card-links">
+                <a class="card-link" href="https://cravedrop-web-demo.netlify.app/" target="_blank" rel="noopener">Live demo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg></a>
+                <a class="card-link" href="https://github.com/JOYCEWONG-2025/Crave-Drop" target="_blank" rel="noopener">View code <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg></a>
+                <button class="card-link details-btn" data-modal="cravedrop">Details</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- EXPENSE SPLITTER -->
+        <div class="card-wrapper" data-href="https://wonderland-expense-splitter.web.app/" data-category="mobile">
+          <div class="card" style="--tag:var(--c-split)">
+            <div class="card-preview" style="--bg:var(--c-split-bg)">
+              <img src="assets/wonderland.png" alt="Expense Splitter" loading="lazy">
+            </div>
+            <div class="card-body">
+              <div class="card-tag">MOBILE / WEB · INDEPENDENT BUILD</div>
+              <div class="card-title">Expense Splitter</div>
+              <p class="card-desc">A Flutter app for splitting shared costs, shipped to the web — solving deployment friction like web-specific image picker behavior.</p>
+              <div class="card-stack">
+                <span class="card-chip">Flutter</span>
+                <span class="card-chip">Dart</span>
+                <span class="card-chip">Firebase</span>
+              </div>
+              <div class="card-links">
+                <a class="card-link" href="https://wonderland-expense-splitter.web.app/" target="_blank" rel="noopener">Live Site <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg></a>
+                <a class="card-link" href="https://github.com/JOYCEWONG-2025/expense-splitter" target="_blank" rel="noopener">View code <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg></a>
+                <button class="card-link details-btn" data-modal="expense">Details</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- JOBTRACKR -->
+        <div class="card-wrapper" data-href="https://jobtrackr-production-4da5.up.railway.app" data-category="fullstack">
+          <div class="card" style="--tag:var(--c-job)">
+            <div class="card-preview" style="--bg:var(--c-job-bg)">
+              <img src="assets/jobtrackr.png" alt="JobTrackr" loading="lazy">
+            </div>
+            <div class="card-body">
+              <div class="card-tag">FULL-STACK · INDEPENDENT BUILD</div>
+              <div class="card-title">JobTrackr</div>
+              <p class="card-desc">A job application tracker with full CRUD, Breeze authentication, and a Sanctum-protected REST API deployed to Railway.</p>
+              <div class="card-stack">
+                <span class="card-chip">Laravel</span>
+                <span class="card-chip">Tailwind</span>
+                <span class="card-chip">MySQL</span>
+              </div>
+              <div class="card-links">
+                <a class="card-link" href="https://jobtrackr-production-4da5.up.railway.app" target="_blank" rel="noopener">Live Platform <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg></a>
+                <a class="card-link" href="https://github.com/JOYCEWONG-2025/jobtrackr" target="_blank" rel="noopener">View code <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg></a>
+                <button class="card-link details-btn" data-modal="jobtrackr">Details</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- DECODING SITUATIONSHIP -->
+        <div class="card-wrapper" data-href="https://machine-learning-decoding-situationship.streamlit.app/" data-category="ml">
+          <div class="card" style="--tag:var(--c-ml)">
+            <div class="card-preview" style="--bg:var(--c-ml-bg)">
+              <img src="assets/situationship.png" alt="Decoding Situationship" loading="lazy">
+            </div>
+            <div class="card-body">
+              <div class="card-tag">MACHINE LEARNING · TEAM PROJECT</div>
+              <div class="card-title">Decoding Situationship</div>
+              <p class="card-desc">Match-prediction model on a 50k dating dataset. Tuned a Random Forest model, added SHAP analysis, and deployed via Streamlit.</p>
+              <div class="card-stack">
+                <span class="card-chip">scikit-learn</span>
+                <span class="card-chip">SHAP</span>
+                <span class="card-chip">Streamlit</span>
+              </div>
+              <div class="card-links">
+                <a class="card-link" href="https://machine-learning-decoding-situationship.streamlit.app/" target="_blank" rel="noopener">Streamlit App <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg></a>
+                <a class="card-link" href="https://github.com/JOYCEWONG-2025/Machine-Learning-Decoding-Situationship" target="_blank" rel="noopener">View code <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg></a>
+                <button class="card-link details-btn" data-modal="situationship">Details</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="section wrap" id="skills">
+      <div class="section-head">
+        <div class="section-eyebrow">skills</div>
+        <h2>Tools I reach for</h2>
+      </div>
+      <div class="skills-grid">
+        <div class="skills-row">
+          <div class="skills-label">Languages</div>
+          <div class="skills-chips">
+            <span class="skill-chip">Python</span>
+            <span class="skill-chip">Java</span>
+            <span class="skill-chip">JavaScript / TypeScript</span>
+            <span class="skill-chip">Dart</span>
+            <span class="skill-chip">PHP</span>
+            <span class="skill-chip">SQL</span>
+          </div>
+        </div>
+        <div class="skills-row">
+          <div class="skills-label">Frameworks</div>
+          <div class="skills-chips">
+            <span class="skill-chip">React</span>
+            <span class="skill-chip">FastAPI</span>
+            <span class="skill-chip">LangGraph</span>
+            <span class="skill-chip">Laravel</span>
+            <span class="skill-chip">Flutter</span>
+            <span class="skill-chip">JavaFX</span>
+          </div>
+        </div>
+        <div class="skills-row">
+          <div class="skills-label">Data & ML</div>
+          <div class="skills-chips">
+            <span class="skill-chip">pandas</span>
+            <span class="skill-chip">scikit-learn</span>
+            <span class="skill-chip">SHAP</span>
+            <span class="skill-chip">Power BI / DAX</span>
+          </div>
+        </div>
+        <div class="skills-row">
+          <div class="skills-label">Infra & Tools</div>
+          <div class="skills-chips">
+            <span class="skill-chip">Firebase</span>
+            <span class="skill-chip">MySQL</span>
+            <span class="skill-chip">Railway</span>
+            <span class="skill-chip">Netlify</span>
+            <span class="skill-chip">Git / GitHub</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section wrap" id="about">
+      <div class="section-head">
+        <div class="section-eyebrow">about</div>
+        <h2>How I work</h2>
+      </div>
+      <div class="about-grid">
+        <div class="about-item">
+          <div class="num">Full-stack by habit</div>
+          <div class="desc">Data, backend, frontend, deployment — I don't hand off before something actually runs somewhere.</div>
+        </div>
+        <div class="about-item">
+          <div class="num">Ship over polish-forever</div>
+          <div class="desc">Most projects here ended up live or demoed, not left as local-only prototypes.</div>
+        </div>
+        <div class="about-item">
+          <div class="num">Comfortable across domains</div>
+          <div class="desc">Trading analytics, logistics, ML, agentic AI — the tools change, the process doesn't.</div>
+        </div>
+        <div class="about-item">
+          <div class="num">Learning in public</div>
+          <div class="desc">Currently deep in LangGraph agent orchestration and computer networks.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section wrap" id="contact">
+      <div class="contact-block">
+        <h2>Eager to learn, glad to collaborate — let's talk.</h2>
+        <div class="contact-emails">
+          <a class="email-link" href="mailto:25005859@siswa.um.edu.my">
+            <span class="label">university</span> 25005859@siswa.um.edu.my
+            <svg class="arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg>
+          </a>
+          <a class="email-link" href="mailto:joycepinky2122@gmail.com">
+            <span class="label">personal</span> joycepinky2122@gmail.com
+            <svg class="arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap">
+    <div class="foot-note">Joyce Wong · Universiti Malaya · 2026</div>
+  </footer>
+
+  <!-- DETAILS MODAL -->
+  <div class="modal-overlay" id="project-modal">
+    <div class="modal-box">
+      <button class="modal-close" id="modal-close" aria-label="Close">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <div id="modal-content"><!-- filled by JS from #modal-data --></div>
+    </div>
+  </div>
+
+  <!-- Modal source data — edit the text inside each block to customize -->
+  <div id="modal-data" style="display:none">
+
+    <div data-modal-id="energy" data-tag-color="var(--c-energy)">
+      <div class="modal-tag">DASHBOARD · INDEPENDENT BUILD</div>
+      <div class="modal-title">Energy Market Analytics Dashboard</div>
+      <div class="modal-section"><h4>Role</h4><p>Independent project, built end-to-end — data pipeline, analysis, and dashboard.</p></div>
+      <div class="modal-section"><h4>What it does</h4><p>Tracks Brent, WTI, Natural Gas and USD/MYR trends side by side — rebased-to-100 indexing so different price scales are comparable, plus rolling volatility and correlation views. Reproduced in parallel as an interactive web dashboard and a Power BI / DAX model.</p></div>
+      <div class="modal-section"><h4>Stack</h4><p>Python, pandas, Power BI</p></div>
+      <div class="modal-links">
+        <a class="card-link" href="https://energy-market-analytics-dashboard.netlify.app/" target="_blank" rel="noopener">Live dashboard ↗</a>
+        <a class="card-link" href="https://app.powerbi.com/view?r=eyJrIjoiMWZkZjZkMzEtMmUzYy00ZTlhLTlhNTYtZTAxNWYyYzgzODlmIiwidCI6ImE2M2JiMWE5LTQ4YzItNDQ4Yi04NjkzLTMzMTdiMDBjYTdmYiIsImMiOjEwfQ%3D%3D" target="_blank" rel="noopener">Power BI report ↗</a>
+      </div>
+    </div>
+
+    <div data-modal-id="stitchflow" data-tag-color="var(--c-stitch)">
+      <div class="modal-tag">AI AGENT · UM HACKATHON 2026</div>
+      <div class="modal-title">StitchFlow</div>
+      <div class="modal-section"><h4>Role</h4><p>Built independently at UM Hackathon 2026.</p></div>
+      <div class="modal-section"><h4>What it does</h4><p>A human-in-the-loop document workflow engine. It redacts personally identifiable information first, reasons over the redacted text with an LLM agent, screens the output against policy rules, then pauses for a human to approve before anything executes — with a hash-chained audit log for every decision.</p></div>
+      <div class="modal-section"><h4>Stack</h4><p>FastAPI, LangGraph, React + TypeScript</p></div>
+      <div class="modal-links">
+        <a class="card-link" href="https://github.com/JOYCEWONG-2025/StitchFlow" target="_blank" rel="noopener">GitHub repo ↗</a>
+      </div>
+    </div>
+
+    <div data-modal-id="cravedrop" data-tag-color="var(--c-crave)">
+      <div class="modal-tag">SYSTEMS · TEAM PROJECT</div>
+      <div class="modal-title">Crave Drop</div>
+      <div class="modal-section"><h4>Role</h4><p>Owned Logistics & Rider Assignment within a team project.</p></div>
+      <div class="modal-section"><h4>What it does</h4><p>A smart food delivery and order management system. My component is a Min-Heap priority-queue engine that ranks and dispatches riders in real time based on proximity and current load.</p></div>
+      <div class="modal-section"><h4>Stack</h4><p>Java, JavaFX, priority queues</p></div>
+      <div class="modal-links">
+        <a class="card-link" href="https://cravedrop-web-demo.netlify.app/" target="_blank" rel="noopener">Live demo ↗</a>
+        <a class="card-link" href="https://github.com/JOYCEWONG-2025/Crave-Drop" target="_blank" rel="noopener">View code ↗</a>
+      </div>
+    </div>
+
+    <div data-modal-id="expense" data-tag-color="var(--c-split)">
+      <div class="modal-tag">MOBILE / WEB · INDEPENDENT BUILD</div>
+      <div class="modal-title">Expense Splitter</div>
+      <div class="modal-section"><h4>Role</h4><p>Designed and built independently, end-to-end.</p></div>
+      <div class="modal-section"><h4>What it does</h4><p>A Flutter app for splitting shared costs, shipped to the web instead of staying mobile-only. Building this surfaced real deployment friction — renderer quirks, case-sensitive asset paths, and web-specific image picker behavior — that a mobile-only build wouldn't have hit.</p></div>
+      <div class="modal-section"><h4>Stack</h4><p>Flutter, Dart, Firebase</p></div>
+      <div class="modal-links">
+        <a class="card-link" href="https://wonderland-expense-splitter.web.app/" target="_blank" rel="noopener">Live site ↗</a>
+        <a class="card-link" href="https://github.com/JOYCEWONG-2025/expense-splitter" target="_blank" rel="noopener">View code ↗</a>
+      </div>
+    </div>
+
+    <div data-modal-id="jobtrackr" data-tag-color="var(--c-job)">
+      <div class="modal-tag">FULL-STACK · INDEPENDENT BUILD</div>
+      <div class="modal-title">JobTrackr</div>
+      <div class="modal-section"><h4>Role</h4><p>Designed and built independently, including the API and database layer.</p></div>
+      <div class="modal-section"><h4>What it does</h4><p>A job application tracker with full CRUD, Breeze authentication, and a Sanctum-protected REST API — deployed to Railway with a live MySQL database rather than running locally.</p></div>
+      <div class="modal-section"><h4>Stack</h4><p>Laravel, Tailwind CSS, MySQL</p></div>
+      <div class="modal-links">
+        <a class="card-link" href="https://jobtrackr-production-4da5.up.railway.app" target="_blank" rel="noopener">Live platform ↗</a>
+        <a class="card-link" href="https://github.com/JOYCEWONG-2025/jobtrackr" target="_blank" rel="noopener">View code ↗</a>
+      </div>
+    </div>
+
+    <div data-modal-id="situationship" data-tag-color="var(--c-ml)">
+      <div class="modal-tag">MACHINE LEARNING · TEAM PROJECT</div>
+      <div class="modal-title">Decoding Situationship</div>
+      <div class="modal-section"><h4>Role</h4><p>Team project.</p></div>
+      <div class="modal-section"><h4>What it does</h4><p>A match-prediction model trained on a 50k-record dating dataset. Tuned a Random Forest via GridSearchCV, added SHAP and PCA analysis to explain predictions, and deployed the results as an interactive Streamlit app.</p></div>
+      <div class="modal-section"><h4>Stack</h4><p>scikit-learn, SHAP, Streamlit</p></div>
+      <div class="modal-links">
+        <a class="card-link" href="https://machine-learning-decoding-situationship.streamlit.app/" target="_blank" rel="noopener">Streamlit app ↗</a>
+        <a class="card-link" href="https://github.com/JOYCEWONG-2025/Machine-Learning-Decoding-Situationship" target="_blank" rel="noopener">View code ↗</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  const embeddedNav = document.getElementById('embedded-nav');
+  window.addEventListener('scroll', () => {
+    if (embeddedNav) {
+      if (window.scrollY > 8) {
+        embeddedNav.classList.add('scrolled');
+      } else {
+        embeddedNav.classList.remove('scrolled');
+      }
+    }
+  });
+
+  // Whole-card click, without ever nesting a real <a> inside another <a>.
+  document.querySelectorAll('.portfolio-embed .card-wrapper[data-href]').forEach((wrapper) => {
+    wrapper.addEventListener('click', (e) => {
+      // If the click landed on a real link OR the Details button, let that
+      // element's own handler deal with it instead of also opening the main URL.
+      if (e.target.closest('a') || e.target.closest('button')) return;
+      const url = wrapper.getAttribute('data-href');
+      if (url) window.open(url, '_blank', 'noopener');
+    });
+  });
+
+  // FILTERING
+  const filterRow = document.getElementById('filter-row');
+  const cardWrappers = document.querySelectorAll('.portfolio-embed .card-wrapper[data-category]');
+  if (filterRow) {
+    filterRow.addEventListener('click', (e) => {
+      const btn = e.target.closest('.filter-btn');
+      if (!btn) return;
+      filterRow.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      cardWrappers.forEach(card => {
+        const show = filter === 'all' || card.dataset.category === filter;
+        card.classList.toggle('hidden', !show);
+      });
+    });
+  }
+
+  // DETAILS MODAL
+  const modalOverlay = document.getElementById('project-modal');
+  const modalContent = document.getElementById('modal-content');
+  const modalData = document.getElementById('modal-data');
+
+  function openModal(id) {
+    const source = modalData.querySelector(`[data-modal-id="${id}"]`);
+    if (!source || !modalContent || !modalOverlay) return;
+    modalContent.innerHTML = source.innerHTML;
+    modalContent.style.setProperty('--modal-tag', source.dataset.tagColor);
+    modalOverlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal() {
+    if (!modalOverlay) return;
+    modalOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll('.portfolio-embed .details-btn').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      openModal(btn.dataset.modal);
+    });
+  });
+  const modalCloseBtn = document.getElementById('modal-close');
+  if (modalCloseBtn) modalCloseBtn.addEventListener('click', closeModal);
+  if (modalOverlay) {
+    modalOverlay.addEventListener('click', (e) => {
+      if (e.target === modalOverlay) closeModal();
+    });
+  }
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeModal();
+  });
+</script>
+</body>
+</html>
